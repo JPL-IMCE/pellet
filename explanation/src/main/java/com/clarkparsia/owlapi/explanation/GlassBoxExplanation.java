@@ -230,16 +230,22 @@ public class GlassBoxExplanation extends SingleExplanationGeneratorImpl {
 			if( log.isLoggable( Level.FINE ) )
 				log.fine( "Explanation " + explanation );
 
-			Set<OWLAxiom> prunedExplanation = pruneExplanation( unsatClass, explanation, true );
-			
-			int prunedAxiomCount = explanation.size() - prunedExplanation.size();
-			if( log.isLoggable( Level.FINE ) && prunedAxiomCount > 0 ) {
-				log.fine( "Pruned " + prunedAxiomCount + " axioms from the explanation: "
-						+ SetUtils.difference( explanation, prunedExplanation ) );
-				log.fine( "New explanation " + prunedExplanation );
-			}
+			if (PelletOptions.PRUNE_EXPLANATIONS) {
+				boolean incremental = PelletOptions.PRUNE_INCREMENTALLY;
+				log.fine("Prune incrementally? " + incremental);
+				Set<OWLAxiom> prunedExplanation = pruneExplanation(unsatClass, explanation, incremental);
 
-			return prunedExplanation;
+				int prunedAxiomCount = explanation.size() - prunedExplanation.size();
+				if (log.isLoggable(Level.FINE) && prunedAxiomCount > 0) {
+					log.fine("Pruned " + prunedAxiomCount + " axioms from the explanation: "
+							+ SetUtils.difference(explanation, prunedExplanation));
+					log.fine("New explanation " + prunedExplanation);
+				}
+
+				return prunedExplanation;
+			} else {
+				return explanation;
+			}
 		}
 	}
 	

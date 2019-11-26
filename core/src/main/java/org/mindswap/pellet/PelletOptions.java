@@ -248,7 +248,11 @@ public class PelletOptions {
 		
 		IGNORE_ANNOTATION_CLASSES = getBooleanProperty(newOptions, "IGNORE_ANNOTATION_CLASSES",
 		                IGNORE_ANNOTATION_CLASSES, oldOptions);
-		
+
+		PRUNE_EXPLANATIONS = getBooleanProperty(newOptions, "PRUNE_EXPLANATIONS", PRUNE_EXPLANATIONS, oldOptions);
+
+		PRUNE_INCREMENTALLY = getBooleanProperty(newOptions, "PRUNE_INCREMENTALLY", PRUNE_INCREMENTALLY, oldOptions);
+
 		return oldOptions;
 	}
 
@@ -810,7 +814,11 @@ public class PelletOptions {
 	 * modified. Annotation classes from OBO are included by default.   
 	 */
 	public static boolean 								IGNORE_ANNOTATION_CLASSES				= true;
-	
+
+	public static boolean                               PRUNE_EXPLANATIONS                      = true;
+
+	public static boolean                               PRUNE_INCREMENTALLY                     = true;
+
 	static {
 		String configFile = System.getProperty( "pellet.configuration" );
 
